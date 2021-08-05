@@ -2,15 +2,21 @@ const express = require("express");
 const config = require("config");
 const mongoose = require("mongoose");
 
+const authRouter = require("./routes/auth");
+
 const app = express();
 const PORT = config.get("port") || 4000;
 
+// Middlewares
+app.use("/api/auth", authRouter);
+
+// App start
 async function start() {
   try {
     await mongoose.connect(config.get("mongoUri"), {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateInded: true,
+      useCreateIndex: true,
     });
 
     app.listen(PORT, () => console.log(`App is running on port ${PORT}...`));
