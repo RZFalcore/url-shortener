@@ -1,0 +1,35 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "MERN stack app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RZFalcore/url-shortener.git"
+  },
+  "keywords": [
+    "MERN",
+    "react",
+    "node",
+    "express"
+  ],
+  "author": "RZFalcore <rzfalcore@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RZFalcore/url-shortener/issues"
+  },
+  "homepage": "https://github.com/RZFalcore/url-shortener#readme",
+  "dependencies": {
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.5"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.12"
+  }
+}
