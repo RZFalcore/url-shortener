@@ -1,7 +1,11 @@
 import "materialize-css";
 
 function App() {
-  return <h1>Url shortener</h1>;
+  return (
+    <div class="container">
+      <h1>Url shortener</h1>
+    </div>
+  );
 }
 
 export default App;
