@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import AuthPage from "./pages/AuthPage";
 import CreateLinkPage from "./pages/CreateLinkPage";
 import LinkDetailsPage from "./pages/LinkDetailsPage";
 import LinksPage from "./pages/LinksPage";
@@ -17,10 +18,19 @@ export const useRoutes = (isAuthenticated) => {
         <Route path="/details/:id">
           <LinkDetailsPage />
         </Route>
+
         <Redirect to="/create" />
       </Switch>
     );
   } else {
-    return <Switch></Switch>;
+    return (
+      <Switch>
+        <Route path="/" exact>
+          <AuthPage />
+        </Route>
+
+        <Redirect to="/" />
+      </Switch>
+    );
   }
 };
