@@ -6,7 +6,7 @@ function App() {
   const routes = useRoutes(false);
   return (
     <Router>
-      <div class="container">{routes}</div>
+      <div className="container">{routes}</div>
     </Router>
   );
 }
