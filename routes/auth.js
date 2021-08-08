@@ -9,7 +9,7 @@ const router = Router();
 
 // /api/auth
 
-router.get(
+router.post(
   "/registration",
   [
     check("email", "Invalid email").isEmail(),
@@ -43,7 +43,7 @@ router.get(
   }
 );
 
-router.get(
+router.post(
   "/login",
   [
     check("email", "Incorrect email").normalizeEmail().isEmail(),

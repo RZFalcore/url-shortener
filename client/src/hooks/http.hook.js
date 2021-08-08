@@ -7,20 +7,25 @@ export const useHttp = () => {
   const request = useCallback(
     async (url, method = "GET", body = null, headers = {}) => {
       setLoading(true);
-      try {
-        const response = await fetch(url, { method, body, headers });
-        const data = await response.json();
+          try {
+            if (body) {
+              body = JSON.stringify(body);
+              headers["Content-Type"] = "application/json";
+            }
 
-        if (!response.ok)
-          throw new Error(data.message || "Something go wrong.");
+            const response = await fetch(url, { method, body, headers });
+            const data = await response.json();
 
-        setLoading(false);
-        return data;
-      } catch (error) {
-        setLoading(false);
-        setError(e.message);
-        throw e;
-      }
+            if (!response.ok)
+              throw new Error(data.message || "Something go wrong.");
+
+            setLoading(false);
+            return data;
+          } catch (error) {
+            setLoading(false);
+            setError(error.message);
+            throw error;
+          }
     },
     []
   );

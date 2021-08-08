@@ -8,6 +8,7 @@ const app = express();
 const PORT = config.get("port") || 4000;
 
 // Middlewares
+app.use(express.json({ extended: true }));
 app.use("/api/auth", authRouter);
 
 // App start
