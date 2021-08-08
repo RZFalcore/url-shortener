@@ -19,11 +19,21 @@ const AuthPage = () => {
   const registrationHandler = async () => {
     try {
       const data = await request("/api/auth/registration", "POST", { ...form });
-      console.log("Data: ", data);
+      message(data.message);
     } catch (e) {
       console.log(e);
     }
   };
+
+  const loginHandler = async () => {
+    try {
+      const data = await request("/api/auth/login", "POST", { ...form });
+      message(data.message);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className="row">
       <div className="col s6 offset-s3">
@@ -58,7 +68,9 @@ const AuthPage = () => {
             style={{ display: "flex", justifyContent: "space-evenly" }}
             disabled={loading}
           >
-            <button className="btn yellow darken-4">Log in</button>
+            <button className="btn yellow darken-4" onClick={loginHandler}>
+              Log in
+            </button>
             <button
               className="btn grey  lighten-2 black-text"
               onClick={registrationHandler}

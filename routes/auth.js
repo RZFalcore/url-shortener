@@ -60,16 +60,20 @@ router.post(
 
       const { email, password } = req.body;
       const user = await User.findOne({ email });
+
       if (!user) return res.status(400).json({ message: "User not found." });
 
-      const isPasswordMatch = bcrypt.compare(password, user.password);
+      const isPasswordMatch = await bcrypt.compare(password, user.password);
       if (!isPasswordMatch)
         return res.status(400).json({ message: "Incorrect password." });
 
-      const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {
+      const key = await config.get("jwtSecret");
+      console.log(key);
+
+      await jwt.sign({ userId: user.id }, key, {
         expiresIn: "1h",
       });
-
+      console.log("TOKEN:", token);
       res.json({ token, userId: user.id });
     } catch (error) {
       res.status(500).json({ message: "Something go wrong..." });
