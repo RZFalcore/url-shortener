@@ -60,17 +60,14 @@ router.post(
           .json({ errors: errors.array(), message: "Ivalid login data." });
 
       let { email, password } = req.body;
-      console.log("email: ", email, "password: ", password);
 
       email = email.trim();
 
       const user = await User.findOne({ email });
-      console.log("User: ", user);
 
       if (!user) return res.status(400).json({ message: "User not found." });
 
       const isPasswordMatch = await bcrypt.compare(password, user.password);
-      console.log(isPasswordMatch);
 
       if (!isPasswordMatch) {
         return res.status(400).json({ message: "Incorrect password." });
@@ -79,8 +76,6 @@ router.post(
       const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {
         expiresIn: "1h",
       });
-
-      console.log("TOKEN:", token);
 
       res.json({ token, userId: user.id });
     } catch (error) {

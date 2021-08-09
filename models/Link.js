@@ -5,11 +5,11 @@ const userSchema = new Schema({
   to: { type: String, required: true, unique: true },
   code: { type: String, required: true, unique: true },
   date: { type: Date, default: Date.now },
+  owner: { type: Types.ObjectId, ref: "User" },
   clicks: {
     type: Number,
     default: 0,
   },
-  owner: { type: Types.ObjectId, ref: "User" },
 });
 
 module.exports = model("Link", userSchema);
