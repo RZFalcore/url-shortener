@@ -3,6 +3,7 @@ const config = require("config");
 const mongoose = require("mongoose");
 
 const authRouter = require("./routes/auth");
+const linksRouter = require("./routes/links");
 
 const app = express();
 const PORT = config.get("port") || 4000;
@@ -10,6 +11,7 @@ const PORT = config.get("port") || 4000;
 // Middlewares
 app.use(express.json({ extended: true }));
 app.use("/api/auth", authRouter);
+app.use("/api/links", linksRouter);
 
 // App start
 async function start() {
