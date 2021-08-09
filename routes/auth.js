@@ -2,6 +2,7 @@ const { Router } = require("express");
 const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
+const config = require("config");
 
 const User = require("../models/User");
 
@@ -47,7 +48,7 @@ router.post(
 router.post(
   "/login",
   [
-    check("email", "Incorrect email").normalizeEmail().isEmail(),
+    check("email", "Incorrect email").isEmail(),
     check("password", "Incorrect password").exists(),
   ],
   async (req, res) => {
@@ -58,22 +59,29 @@ router.post(
           .status(400)
           .json({ errors: errors.array(), message: "Ivalid login data." });
 
-      const { email, password } = req.body;
+      let { email, password } = req.body;
+      console.log("email: ", email, "password: ", password);
+
+      email = email.trim();
+
       const user = await User.findOne({ email });
+      console.log("User: ", user);
 
       if (!user) return res.status(400).json({ message: "User not found." });
 
       const isPasswordMatch = await bcrypt.compare(password, user.password);
-      if (!isPasswordMatch)
+      console.log(isPasswordMatch);
+
+      if (!isPasswordMatch) {
         return res.status(400).json({ message: "Incorrect password." });
+      }
 
-      const key = await config.get("jwtSecret");
-      console.log(key);
-
-      await jwt.sign({ userId: user.id }, key, {
+      const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {
         expiresIn: "1h",
       });
+
       console.log("TOKEN:", token);
+
       res.json({ token, userId: user.id });
     } catch (error) {
       res.status(500).json({ message: "Something go wrong..." });
