@@ -17,14 +17,14 @@ router.post("/generate", auth, async (req, res) => {
 
     if (existingLink) {
       return res.json({ link: existingLink });
-    } else {
-      const userId = req.userToken.userId;
-      const link = new Link({ from, to, code, owner: userId });
-
-      await link.save();
-
-      res.statuc(201).json({ link });
     }
+
+    const userId = req.userToken.userId;
+    const link = new Link({ from, to, code, owner: userId });
+    await link.save();
+
+    res.status(201).json({ link });
+    
   } catch (error) {
     res.status(500).json({ message: "Something go wrong! in links", error });
   }

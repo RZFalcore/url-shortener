@@ -9,7 +9,8 @@ module.exports = (req, res, next) => {
     if (!token) return res.status(401).json({ message: "Not authorized." }); // 401 - Not authorized
 
     const decodedToken = jwt.verify(token, config.get("jwtSecret"));
-    req.userToken = jwt.decodedToken;
+    console.log("decodedToken", decodedToken);
+    req.userToken = decodedToken;
 
     next();
   } catch (error) {
