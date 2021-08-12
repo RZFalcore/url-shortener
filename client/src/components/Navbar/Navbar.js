@@ -8,6 +8,7 @@ const Navbar = () => {
   const logoutHandler = (e) => {
     e.preventDefault();
     auth.logout();
+    console.log("LogOut DONE");
     history.push("/");
   };
 

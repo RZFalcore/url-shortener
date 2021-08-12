@@ -13,7 +13,6 @@ const LinkDetailsPage = () => {
 
   const getLink = useCallback(async () => {
     try {
-      console.log(params);
       const fetchedLink = await request(
         `/api/links/${params.id}`,
         "GET",
@@ -22,10 +21,9 @@ const LinkDetailsPage = () => {
           Authorization: `Bearer ${token}`,
         }
       );
-      console.log(fetchedLink);
       setLink(fetchedLink);
     } catch (error) {}
-  }, [request, params.id, token]);
+  }, [request, params, token]);
 
   useEffect(() => {
     getLink();

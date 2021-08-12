@@ -24,7 +24,6 @@ router.post("/generate", auth, async (req, res) => {
     await link.save();
 
     res.status(201).json({ link });
-    
   } catch (error) {
     res.status(500).json({ message: "Something go wrong! in links", error });
   }

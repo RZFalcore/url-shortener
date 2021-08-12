@@ -16,15 +16,18 @@ export const useAuth = () => {
     );
   }, []);
 
-  const logout = useCallback(() => {
+  const logout = () => {
     setToken(null);
     setUserId(null);
     localStorage.removeItem(storageName);
-  }, []);
-
+  };
+  // TOKEN vanished on reload...
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(storageName));
-    if (data && data.token) login(data.login, data.userId);
+    if (data.token) {
+      login(data.login, data.userId);
+    }
+
     setReady(true);
   }, [login, ready]);
 
