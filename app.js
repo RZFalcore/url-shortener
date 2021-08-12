@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 const authRouter = require("./routes/auth");
 const linksRouter = require("./routes/links");
+const redirectRouter = require("./routes/redirect");
 
 const app = express();
 const PORT = config.get("port") || 4000;
@@ -12,6 +13,7 @@ const PORT = config.get("port") || 4000;
 app.use(express.json({ extended: true }));
 app.use("/api/auth", authRouter);
 app.use("/api/links", linksRouter);
+app.use("/to", redirectRouter);
 
 // App start
 async function start() {

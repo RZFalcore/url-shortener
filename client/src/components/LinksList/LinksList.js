@@ -26,7 +26,7 @@ const LinksList = ({ links }) => {
             <td>{index + 1}</td>
             <td>{link.from}</td>
             <td>{link.to}</td>
-            <td>{<Link to={`/detail/${link._id}`}>Open</Link>}</td>
+            <td>{<Link to={`/details/${link._id}`}>Open</Link>}</td>
           </tr>
         ))}
       </tbody>
