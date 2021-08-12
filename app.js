@@ -8,7 +8,7 @@ const linksRouter = require("./routes/links");
 const redirectRouter = require("./routes/redirect");
 
 const app = express();
-const PORT = config.get("port") || 4000;
+const PORT = config.get("port") || process.env.PORT;
 
 // Middlewares
 app.use(express.json({ extended: true }));
