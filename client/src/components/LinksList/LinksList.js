@@ -2,10 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const LinksList = ({ links }) => {
-  if (links.length) return <p className="center">No links yet...</p>;
+  if (links.length < 0)
+    return (
+      <p className="center" style={{ paddingTop: "2rem" }}>
+        No links yet...
+      </p>
+    );
 
   return (
-    <table>
+    <table style={{ paddingTop: "2rem" }}>
       <thead>
         <tr>
           <th>№</th>
