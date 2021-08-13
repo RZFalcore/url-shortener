@@ -8,7 +8,10 @@ module.exports = (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1]; // "Bearer TOKEN"
     if (!token) return res.status(401).json({ message: "Not authorized." }); // 401 - Not authorized
 
-    const decodedToken = jwt.verify(token, config.get("jwtSecret"));
+    const decodedToken = jwt.verify(
+      token,
+      process.env.jwtSecret || config.get("jwtSecret")
+    );
     req.userToken = decodedToken;
 
     next();

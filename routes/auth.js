@@ -34,8 +34,8 @@ router.post(
         return res.status(400).json({ message: "This user is already exist." });
 
       const hashedPassword = await bcrypt.hash(password, 6);
+
       const user = new User({ email, password: hashedPassword });
-      console.log(user);
       await user.save();
 
       res.status(201).json({ message: "User created!" });
@@ -73,9 +73,13 @@ router.post(
         return res.status(400).json({ message: "Incorrect password." });
       }
 
-      const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {
-        expiresIn: "1h",
-      });
+      const token = jwt.sign(
+        { userId: user.id },
+        process.env.jwtToken || config.get("jwtSecret"),
+        {
+          expiresIn: "1h",
+        }
+      );
 
       res.json({ token, userId: user.id });
     } catch (error) {
