@@ -26,7 +26,6 @@ const CreateLinkPage = () => {
           },
           { Authorization: `Bearer ${auth.token}` }
         );
-        console.log("CreateLink:", data);
         history.push(`/details/${data.link._id}`);
       } catch (error) {
         console.log(error);
